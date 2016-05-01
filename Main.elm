@@ -142,13 +142,13 @@ main =
 
 
 -- --------------------------
--- Execise 1:
+-- Exercise 1:
 -- --------------------------
 -- Show forecast of Hamburg right after starting the app without the need to clicking a button
 -- --------------------------
--- Execise 2:
+-- Exercise 2:
 -- --------------------------
--- Add a button "Berlin" to show forecast data of Berlin
+-- Add a second button "Berlin" to show forecast data of Berlin
 -- You can use the following wheater data of Berlin
 --   [ { day = "TUE", max = 18, min = 7, description = "Partly Cloudy" }
 --   , { day = "WED", max = 16, min = 4, description = "Cloudy" }
@@ -157,3 +157,7 @@ main =
 --   , { day = "SAT", max = 23, min = 11, description = "Mostly Sunny" }
 --   , { day = "SUN", max = 24, min = 12, description = "Mostly Sunny" }
 --   ]
+-- --------------------------
+-- Exercise 3:
+-- --------------------------
+-- Use just one button to switch between weather data of Hamburg and Berlin
