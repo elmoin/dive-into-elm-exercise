@@ -38,6 +38,18 @@ forecast_hh =
       ]
   }
 
+forecast_berlin: Model
+forecast_berlin =
+  { city = "Berlin"
+  , forecast =
+      [ { day = "TUE", max = 18, min = 7, description = "Partly Cloudy" }
+      , { day = "WED", max = 16, min = 4, description = "Cloudy" }
+      , { day = "THU", max = 19, min = 6, description = "Sunny" }
+      , { day = "FRI", max = 21, min = 10, description = "Mostly Sunny" }
+      , { day = "SAT", max = 23, min = 11, description = "Mostly Sunny" }
+      , { day = "SUN", max = 24, min = 12, description = "Mostly Sunny" }
+      ]
+  }
 
 
 -- empty model data
@@ -54,6 +66,7 @@ initalModel =
 
 type Action
   = Reset
+  | Toggle
   | Show Model
 
 
@@ -62,6 +75,12 @@ update action model =
   case action of
     Reset ->
       initalModel
+    Toggle ->
+      case model.city of
+        "Berlin" ->
+          forecast_hh
+        _ ->
+          forecast_berlin
 
     Show forecast ->
       forecast
@@ -125,8 +144,14 @@ view address model =
   div
     []
     [ button
-        [ onClick address (Show forecast_hh) ]
-        [ text "Show forecast" ]
+        [ onClick address (Toggle) ]
+        [ text "Toggle" ]
+    , button
+          [ onClick address (Show forecast_hh) ]
+          [ text "Show forecast in HH" ]
+    , button
+          [ onClick address (Show forecast_berlin) ]
+          [ text "Show forecast in Berlin" ]
     , button
         [ onClick address Reset ]
         [ text "Reset" ]
@@ -137,7 +162,7 @@ view address model =
 
 main : Signal Html.Html
 main =
-  StartApp.start { model = initalModel, view = view, update = update }
+  StartApp.start { model = forecast_hh, view = view, update = update }
 
 
 
