@@ -38,6 +38,18 @@ forecast_hh =
       ]
   }
 
+forecast_berlin: Model
+forecast_berlin =
+  { city = "Berlin"
+  , forecast =
+      [ { day = "TUE", max = 18, min = 7, description = "Partly Cloudy" }
+      , { day = "WED", max = 16, min = 4, description = "Cloudy" }
+      , { day = "THU", max = 19, min = 6, description = "Sunny" }
+      , { day = "FRI", max = 21, min = 10, description = "Mostly Sunny" }
+      , { day = "SAT", max = 23, min = 11, description = "Mostly Sunny" }
+      , { day = "SUN", max = 24, min = 12, description = "Mostly Sunny" }
+      ]
+  }
 
 
 -- empty model data
@@ -126,7 +138,10 @@ view address model =
     []
     [ button
         [ onClick address (Show forecast_hh) ]
-        [ text "Show forecast" ]
+        [ text "Show forecast HH" ]
+    , button
+        [ onClick address (Show forecast_berlin) ]
+        [ text "Show forecast Berlin" ]
     , button
         [ onClick address Reset ]
         [ text "Reset" ]
