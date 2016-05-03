@@ -38,14 +38,24 @@ forecast_hh =
       ]
   }
 
-
-
+forecast_berlin : Model
+forecast_berlin =
+  { city = "Berlin"
+  , forecast =
+      [ { day = "TUE", max = 18, min = 7, description = "Partly Cloudy" }
+       , { day = "WED", max = 16, min = 4, description = "Cloudy" }
+       , { day = "THU", max = 19, min = 6, description = "Sunny" }
+       , { day = "FRI", max = 21, min = 10, description = "Mostly Sunny" }
+       , { day = "SAT", max = 23, min = 11, description = "Mostly Sunny" }
+       , { day = "SUN", max = 24, min = 12, description = "Mostly Sunny" }
+       ]
+  }
 -- empty model data
 
 
 initalModel : Model
 initalModel =
-  { city = "", forecast = [] }
+  forecast_hh
 
 
 
@@ -54,7 +64,7 @@ initalModel =
 
 type Action
   = Reset
-  | Show Model
+  | Toggle Model
 
 
 update : Action -> Model -> Model
@@ -63,9 +73,8 @@ update action model =
     Reset ->
       initalModel
 
-    Show forecast ->
-      forecast
-
+    Toggle currentModel ->
+      if currentModel == forecast_hh then forecast_berlin else forecast_hh
 
 
 -- VIEW
@@ -125,8 +134,8 @@ view address model =
   div
     []
     [ button
-        [ onClick address (Show forecast_hh) ]
-        [ text "Show forecast" ]
+        [ onClick address (Toggle model) ]
+        [ text "Toggle" ]
     , button
         [ onClick address Reset ]
         [ text "Reset" ]
@@ -138,26 +147,3 @@ view address model =
 main : Signal Html.Html
 main =
   StartApp.start { model = initalModel, view = view, update = update }
-
-
-
--- --------------------------
--- Exercise 1:
--- --------------------------
--- Show forecast of Hamburg right after starting the app without the need to clicking a button
--- --------------------------
--- Exercise 2:
--- --------------------------
--- Add a second button "Berlin" to show forecast data of Berlin
--- You can use the following wheater data of Berlin
---   [ { day = "TUE", max = 18, min = 7, description = "Partly Cloudy" }
---   , { day = "WED", max = 16, min = 4, description = "Cloudy" }
---   , { day = "THU", max = 19, min = 6, description = "Sunny" }
---   , { day = "FRI", max = 21, min = 10, description = "Mostly Sunny" }
---   , { day = "SAT", max = 23, min = 11, description = "Mostly Sunny" }
---   , { day = "SUN", max = 24, min = 12, description = "Mostly Sunny" }
---   ]
--- --------------------------
--- Exercise 3:
--- --------------------------
--- Use just one button to switch between weather data of Hamburg and Berlin
