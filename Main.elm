@@ -66,6 +66,7 @@ initalModel =
 
 type Action
   = Reset
+  | Toggle
   | Show Model
 
 
@@ -74,6 +75,12 @@ update action model =
   case action of
     Reset ->
       initalModel
+    Toggle ->
+      case model.city of
+        "Berlin" ->
+          forecast_hh
+        _ ->
+          forecast_berlin
 
     Show forecast ->
       forecast
@@ -137,11 +144,14 @@ view address model =
   div
     []
     [ button
-        [ onClick address (Show forecast_hh) ]
-        [ text "Show forecast HH" ]
+        [ onClick address (Toggle) ]
+        [ text "Toggle" ]
     , button
-        [ onClick address (Show forecast_berlin) ]
-        [ text "Show forecast Berlin" ]
+          [ onClick address (Show forecast_hh) ]
+          [ text "Show forecast in HH" ]
+    , button
+          [ onClick address (Show forecast_berlin) ]
+          [ text "Show forecast in Berlin" ]
     , button
         [ onClick address Reset ]
         [ text "Reset" ]
