@@ -64,7 +64,7 @@ initalModel =
 
 type Action
   = Reset
-  | Show Model
+  | Toggle Model
 
 
 update : Action -> Model -> Model
@@ -73,9 +73,8 @@ update action model =
     Reset ->
       initalModel
 
-    Show forecast ->
-      forecast
-
+    Toggle currentModel ->
+      if currentModel == forecast_hh then forecast_berlin else forecast_hh
 
 
 -- VIEW
@@ -135,11 +134,8 @@ view address model =
   div
     []
     [ button
-        [ onClick address (Show forecast_hh) ]
-        [ text "Show hh forecast" ]
-    , button
-        [ onClick address (Show forecast_berlin) ]
-        [ text "Show berlin forecast" ]
+        [ onClick address (Toggle model) ]
+        [ text "Toggle" ]
     , button
         [ onClick address Reset ]
         [ text "Reset" ]
@@ -151,8 +147,3 @@ view address model =
 main : Signal Html.Html
 main =
   StartApp.start { model = initalModel, view = view, update = update }
-
--- --------------------------
--- Exercise 3:
--- --------------------------
--- Use just one button to switch between weather data of Hamburg and Berlin
