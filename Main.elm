@@ -137,7 +137,7 @@ view address model =
 
 main : Signal Html.Html
 main =
-  StartApp.start { model = initalModel, view = view, update = update }
+  StartApp.start { model = forecast_hh, view = view, update = update }
 
 
 
